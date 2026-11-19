@@ -132,7 +132,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"nome\": \"Artur Teste Atualizado\",\r\n  \"email\": \"artur.qa.teste123@qa.com.br\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+              "raw": "{\r\n  \"nome\": \"Artur Teste Atualizado\",\r\n  \"email\": \"{{$randomEmail}}{{$randomEmail}}\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -232,32 +232,13 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"nome\": \"Teclado Mecânico QA\",\r\n  \"preco\": 250,\r\n  \"descricao\": \"Teclado para testes\",\r\n  \"quantidade\": 10\r\n}",
+              "raw": "{\r\n  \"nome\": \"Teclado Mecânico QA {{$randomInt}}\",\r\n  \"preco\": 250,\r\n  \"descricao\": \"Teclado para testes\",\r\n  \"quantidade\": 10\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
                 }
               }
             },
-            "url": {
-              "raw": "https://serverest.dev/produtos",
-              "protocol": "https",
-              "host": [
-                "serverest",
-                "dev"
-              ],
-              "path": [
-                "produtos"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Buscar produto",
-          "request": {
-            "method": "GET",
-            "header": [],
             "url": {
               "raw": "https://serverest.dev/produtos",
               "protocol": "https",
@@ -303,6 +284,25 @@
               "path": [
                 "produtos",
                 "{{productId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar produto",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://serverest.dev/produtos",
+              "protocol": "https",
+              "host": [
+                "serverest",
+                "dev"
+              ],
+              "path": [
+                "produtos"
               ]
             }
           },
