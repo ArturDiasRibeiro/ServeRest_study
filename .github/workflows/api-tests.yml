@@ -23,4 +23,4 @@ jobs:
         run: npm install -g newman
 
       - name: Executar Collection de Testes
-        run: newman run NOME_DO_SEU_ARQUIVO.json
+        run: newman run ServeRest.postman_collection.json
