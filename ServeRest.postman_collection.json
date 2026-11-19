@@ -167,22 +167,88 @@
       "item": [
         {
           "name": "Criar produto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Produto criado - 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\nconst productJson = pm.response.json();\r\nif (productJson._id) {\r\n    pm.collectionVariables.set(\"productId\", productJson._id);\r\n}"
+                ]
+              }
+            }
+          ],
           "request": {
-            "method": "GET",
-            "header": [],
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{authToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Teclado Mecânico QA\",\r\n  \"preco\": 250,\r\n  \"descricao\": \"Teclado para testes\",\r\n  \"quantidade\": 10\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
             "url": {
-              "raw": ""
+              "raw": "https://serverest.dev/produtos",
+              "protocol": "https",
+              "host": [
+                "serverest",
+                "dev"
+              ],
+              "path": [
+                "produtos"
+              ]
             }
           },
           "response": []
         },
         {
-          "name": "New Request",
+          "name": "Deletar produto",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{authToken}}"
+              }
+            ],
+            "url": {
+              "raw": "https://serverest.dev/produtos/{{productId}}",
+              "protocol": "https",
+              "host": [
+                "serverest",
+                "dev"
+              ],
+              "path": [
+                "produtos",
+                "{{productId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar produto",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": ""
+              "raw": "https://serverest.dev/produtos",
+              "protocol": "https",
+              "host": [
+                "serverest",
+                "dev"
+              ],
+              "path": [
+                "produtos"
+              ]
             }
           },
           "response": []
@@ -191,11 +257,39 @@
     },
     {
       "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Login com sucesso - 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nif (jsonData.authorization) {\r\n    pm.collectionVariables.set(\"authToken\", jsonData.authorization);\r\n}"
+            ]
+          }
+        }
+      ],
       "request": {
-        "method": "GET",
+        "method": "POST",
         "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"fulano@qa.com\", \r\n    \"password\": \"teste\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
-          "raw": ""
+          "raw": "https://serverest.dev/login",
+          "protocol": "https",
+          "host": [
+            "serverest",
+            "dev"
+          ],
+          "path": [
+            "login"
+          ]
         }
       },
       "response": []
