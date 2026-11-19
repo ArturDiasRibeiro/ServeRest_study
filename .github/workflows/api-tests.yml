@@ -1,0 +1,26 @@
+name: Testes de API com Newman
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  run-newman:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar Newman
+        run: npm install -g newman
+
+      - name: Executar Collection de Testes
+        run: newman run NOME_DO_SEU_ARQUIVO.json
