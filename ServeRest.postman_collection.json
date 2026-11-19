@@ -8,6 +8,50 @@
   },
   "item": [
     {
+      "name": "Login",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Login com sucesso - 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nif (jsonData.authorization) {\r\n    pm.collectionVariables.set(\"authToken\", jsonData.authorization);\r\n}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"fulano@qa.com\", \r\n    \"password\": \"teste\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://serverest.dev/login",
+              "protocol": "https",
+              "host": [
+                "serverest",
+                "dev"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Usuários",
       "item": [
         {
@@ -210,7 +254,37 @@
           "response": []
         },
         {
+          "name": "Buscar produto",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://serverest.dev/produtos",
+              "protocol": "https",
+              "host": [
+                "serverest",
+                "dev"
+              ],
+              "path": [
+                "produtos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Deletar produto",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Produto excluído - 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});"
+                ]
+              }
+            }
+          ],
           "request": {
             "method": "DELETE",
             "header": [
@@ -233,66 +307,8 @@
             }
           },
           "response": []
-        },
-        {
-          "name": "Buscar produto",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://serverest.dev/produtos",
-              "protocol": "https",
-              "host": [
-                "serverest",
-                "dev"
-              ],
-              "path": [
-                "produtos"
-              ]
-            }
-          },
-          "response": []
         }
       ]
-    },
-    {
-      "name": "Login",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Login com sucesso - 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\nif (jsonData.authorization) {\r\n    pm.collectionVariables.set(\"authToken\", jsonData.authorization);\r\n}"
-            ]
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"email\": \"fulano@qa.com\", \r\n    \"password\": \"teste\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "https://serverest.dev/login",
-          "protocol": "https",
-          "host": [
-            "serverest",
-            "dev"
-          ],
-          "path": [
-            "login"
-          ]
-        }
-      },
-      "response": []
     }
   ],
   "variable": [
